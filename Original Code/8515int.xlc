@@ -1,0 +1,25 @@
+8515int.xlc
+-! XLINK command file for AT90S8515. 512 bytes data address
+space and 8 Kbytes program address space. -!
+-! Define CPU type (AVR) -!
+-ca90
+-! Define reset and interrupt vector segment, requires 28(dec) locations -!
+-Z(CODE)INTVEC=0-1B
+-! Define segments in flash memory -!
+-Z(CODE)RCODE,CDATA0,CDATA1,CCSTR,SWITCH,FLASH,CODE=1C-1FFF
+-! Define segments in RAM -!
+-! The registers are in addresses 0-1F and memory mapped I/O in addresses 20-5F, built-in SRAM in
+addresses 60-25F. Data stack(CSTACK) size is 60 bytes(hex), return stack(RSTACK) size is 20 bytes(hex)-!
+-Z(DATA)IDATA0,UDATA0,RSTACK+20,IDATA1,UDATA1,ECSTR,CSTACK+60=60-25F
+-! Select reduced "printf" support to reduce library size.
+See the configuration section of the IAR C-compiler Users Guide concerning use of printf/sprintf. -!
+-e_small_write=_formatted_write
+-e_small_write_P=_formatted_write_P
+-! Disable floating-point support in "scanf" to reduce library size.
+See the configuration section of the IAR C-compiler Users Guide concerning use of scanf/sscanf -!
+-e_medium_read=_formatted_read
+-e_medium_read_P=_formatted_read_P
+-! Suppress one warning which is not relevant for this processor -!
+-w29
+-! Load the 'C' library -!
+cl1s
